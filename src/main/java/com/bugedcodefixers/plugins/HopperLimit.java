@@ -1,8 +1,8 @@
 package com.bugedcodefixers.plugins;
 
+import com.bugedcodefixers.plugins.config.ConfigLoader;
 import com.bugedcodefixers.plugins.dataservice.DataService;
 import com.bugedcodefixers.plugins.dataservice.DataServiceFactory;
-import com.bugedcodefixers.plugins.dataservice.MySqlDataService;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -18,6 +18,7 @@ public class HopperLimit extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ConfigLoader.loadDataFolder(getDataFolder());
         setupDataService();
         HopperLimitListener hopperLimitListener = new HopperLimitListener();
         hopperLimitListener.setDataService(dataService);

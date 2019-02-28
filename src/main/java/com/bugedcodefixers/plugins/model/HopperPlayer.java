@@ -16,7 +16,7 @@ public class HopperPlayer {
         this.id = id;
     }
 
-    public String getName() {
+    public String getPlayerListName() {
         return name;
     }
 
