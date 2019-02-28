@@ -1,0 +1,35 @@
+name: HopperLimit
+version: 1.0-SNAPSHOT
+author: ItmanHunter
+main: com.bugedcodefixers.plugins.HopperLimit
+api-version: 1.13
+commands:
+  setHopperLimit:
+    permission: hopperlimit.commands.sethopperlimit
+    description: Sets Hopper limit per chunk
+    usage: /sethopperlimit <limitno>
+permissions:
+  hopperlimit.*:
+    default: false
+    description: Implies all hopperlimit permissions.
+    children:
+      hopperlimit.all: true
+  hopperlimit.all:
+    default: false
+    description: Implies all hopperlimit permissions.
+    children:
+      hopperlimit.commands.setHopperLimit: true
+      hopperlimit.double: true
+      hopperlimit.quadruple: true
+      hopperlimit.triple: true
+  hopperlimit.double:
+    default: false
+    description: Implies hopper limit is doubled for player
+  hopperlimit.quadruple:
+    default: false
+    description: Implies hopper limit is quadrupled for player
+  hopperlimit.triple:
+    default: false
+    description: Implies hopper limit is tripled for player
+
+
