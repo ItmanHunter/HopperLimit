@@ -76,4 +76,8 @@ public class HopperChunk {
     public void increaseCount() {
         count++;
     }
+
+    public void decreaseCount() {
+        count = Math.max(count-1,0);
+    }
 }

@@ -14,7 +14,13 @@ public class JSONService implements DataService {
     public JSONService(JSONObject _configJSON) {
         try {
             this.configJSON = _configJSON;
-            players = configJSON.getJSONObject("players");
+            if (!configJSON.has("players")) {
+                configJSON.put("players", new JSONObject());
+            }
+            if (!configJSON.has("chunks")) {
+                configJSON.put("chunks", new JSONObject());
+            }
+            players = configJSON.optJSONObject("players");
             chunks = configJSON.getJSONObject("chunks");
         } catch (Exception e) {
             throw new RuntimeException("error: " + e);
@@ -49,6 +55,7 @@ public class JSONService implements DataService {
             if (!playerchunks.has(pos)) {
                 JSONObject newChunk = new JSONObject();
                 newChunk.put("hopperPos", pos);
+                playerchunks.put(pos,newChunk);
             }
             JSONObject chunk = playerchunks.getJSONObject(pos);
             return ModelAdaptor.getChunkFromJSON(chunk);

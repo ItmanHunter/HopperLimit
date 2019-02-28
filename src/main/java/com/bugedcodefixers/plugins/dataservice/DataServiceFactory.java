@@ -12,7 +12,10 @@ public class DataServiceFactory {
         try {
             String configJsonString = HopperLimitUtil.readFromFile(CONFIG_FILE);
             JSONObject configJson = new JSONObject(configJsonString);
-            String dataServiceType = configJson.getString("dataServiceType");
+            String dataServiceType = "json";
+            if (configJson.has("json")) {
+                dataServiceType = configJson.getString("dataServiceType");
+            }
             if (dataServiceType.equalsIgnoreCase("mysql")) {
                 return new MySqlDataService(configJson);
             } else {
