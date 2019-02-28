@@ -41,6 +41,9 @@ jar {
     from('src/') {
         include 'plugin.yml'
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 task wrapper(type: Wrapper) {
