@@ -1,8 +1,9 @@
 package com.ocoolcraft.plugins;
 
-import com.ocoolcraft.plugins.dataservice.DataService;
-import com.ocoolcraft.plugins.model.HopperChunk;
-import com.ocoolcraft.plugins.model.HopperPlayer;
+import com.ocoolcraft.plugins.models.ChunkModel;
+import com.ocoolcraft.plugins.models.HopperModel;
+import com.ocoolcraft.plugins.models.PlayerModel;
+import com.ocoolcraft.plugins.service.data.DataService;
 import com.ocoolcraft.plugins.utils.HopperLimitUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -10,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class HopperLimitListener implements Listener {
 
@@ -20,15 +20,20 @@ public class HopperLimitListener implements Listener {
     public void onHopperPlace(BlockPlaceEvent event) {
         if ( event.getBlockPlaced().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
-            HopperPlayer hopperPlayer = dataService.getPlayer(player.getUniqueId().toString());
-            HopperChunk hopperChunk = HopperLimitUtil.getHopperChunk(event.getBlockPlaced(),player,dataService);
-            if (HopperLimitUtil.isHopperLimit(hopperChunk,player,dataService)) {
+            PlayerModel playerModel = dataService.getPlayerModel(
+                    player.getUniqueId().toString(),player.getName());
+            ChunkModel chunkModel = dataService.getChunkModel(
+              HopperLimitUtil.getPositionStringForChunk(event.getBlockPlaced())
+            );
+            String hopperId = HopperLimitUtil.getPositionString(event.getBlockPlaced());
+            HopperModel hopperModel = new HopperModel(hopperId,playerModel.getId(),chunkModel.getId());
+            int count = dataService.getPlayerHopperCount(playerModel.getId(),chunkModel.getId());
+            if (HopperLimitUtil.isHopperLimit(count,player,dataService.getHopperLimit())) {
                 event.setCancelled(true);
                 player.sendMessage("Hopper limit has been reached!!!");
             } else {
-                hopperChunk.increaseCount();
-                dataService.updateChunk(hopperPlayer,hopperChunk);
-                player.sendMessage("Placed hopper successfully!! Total at chunk now: " + hopperChunk.getCount());
+                dataService.addHopper(hopperModel);
+                player.sendMessage("Placed hopper successfully!! Total at chunk now: " + (count + 1));
             }
         }
     }
@@ -37,15 +42,20 @@ public class HopperLimitListener implements Listener {
     public void onHopperBreak(BlockBreakEvent event) {
         if ( event.getBlock().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
-            HopperPlayer hopperPlayer = dataService.getPlayer(player.getUniqueId().toString());
-            HopperChunk hopperChunk = HopperLimitUtil.getHopperChunk(event.getBlock(),player,dataService);
-            hopperChunk.decreaseCount();
-            player.sendMessage("Removed hopper successfully!! Total at chunk now: " + hopperChunk.getCount());
-            dataService.updateChunk(hopperPlayer,hopperChunk);
+            PlayerModel playerModel = dataService.getPlayerModel(
+                    player.getUniqueId().toString(),player.getName());
+            ChunkModel chunkModel = dataService.getChunkModel(
+                    HopperLimitUtil.getPositionStringForChunk(event.getBlock())
+            );
+            String hopperId = HopperLimitUtil.getPositionString(event.getBlock());
+            HopperModel hopperModel = new HopperModel(hopperId,playerModel.getId(),chunkModel.getId());
+            dataService.removeHopper(hopperModel);
+            player.sendMessage("Removed hopper successfully!!");
         }
     }
 
     public void setDataService(DataService dataService) {
         this.dataService = dataService;
     }
+
 }

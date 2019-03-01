@@ -1,8 +1,7 @@
 package com.ocoolcraft.plugins;
 
-import com.ocoolcraft.plugins.config.ConfigLoader;
-import com.ocoolcraft.plugins.dataservice.DataService;
-import com.ocoolcraft.plugins.dataservice.DataServiceFactory;
+import com.ocoolcraft.plugins.service.data.DataService;
+import com.ocoolcraft.plugins.service.data.DataServiceFactory;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -13,14 +12,9 @@ public class HopperLimit extends JavaPlugin {
 
     private DataService dataService;
 
-    private void setupDataService() {
-        dataService = DataServiceFactory.getDataService();
-    }
-
     @Override
     public void onEnable() {
-        ConfigLoader.loadDataFolder(getDataFolder());
-        setupDataService();
+        dataService = DataServiceFactory.getDataService(getDataFolder());
         HopperLimitListener hopperLimitListener = new HopperLimitListener();
         hopperLimitListener.setDataService(dataService);
         getServer().getPluginManager().registerEvents(hopperLimitListener, this);
@@ -28,12 +22,11 @@ public class HopperLimit extends JavaPlugin {
     }
 
     @Override
-    public void onDisable(){
-        dataService.unloadDataService();
-        getLogger().info("disabled hopperlimit");
+    public void onDisable() {
+        dataService.unload();
+        getLogger().info("Disabled hopperlimit");
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public boolean onCommand(CommandSender sender, Command command0, String label, String agrs[]) {
         if (sender instanceof Player) {
@@ -44,11 +37,10 @@ public class HopperLimit extends JavaPlugin {
                     return true;
                 }
                 int limit = Integer.parseInt(agrs[0]);
-                dataService.setStandardLimit(limit);
+                dataService.setHopperLimit(limit);
                 getServer().broadcastMessage(ChatColor.RED + "The hopper limit is " + limit);
             }
         }
         return true;
     }
-
 }
