@@ -20,7 +20,7 @@ public class DataServiceFactory {
             if (dataServiceType.equalsIgnoreCase("mysql")) {
                 return new MySqlDataService(configJson);
             } else {
-                return new JSONService();
+                return new FileDataService();
             }
         } catch (Exception e) {
             throw new RuntimeException("error: "+ e);
