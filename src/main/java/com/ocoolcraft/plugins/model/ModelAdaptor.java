@@ -36,4 +36,25 @@ public class ModelAdaptor {
         }
         return hopperChunk;
     }
+
+    public static JSONObject chunkToJson(HopperChunk hopperChunk) {
+        try {
+            JSONObject chunkJson = new JSONObject();
+            chunkJson.put("hopperPos", hopperChunk.getHopperPos());
+            chunkJson.put("count", hopperChunk.getCount());
+            return chunkJson;
+        } catch (Exception e) {
+            throw new RuntimeException("error: " + e);
+        }
+    }
+
+    public static JSONObject playerToJson(HopperPlayer hopperPlayer) {
+        try {
+            JSONObject playerJson = new JSONObject();
+            playerJson.put("name", hopperPlayer.getPlayerListName());
+            return playerJson;
+        } catch (Exception e) {
+            throw new RuntimeException("error: " + e);
+        }
+    }
 }

@@ -13,7 +13,7 @@ public class FileDataService implements DataService {
 
     public static String PLAYERS_DATA_JSON = "players.json";
 
-    public static JSONObject players;
+    public JSONObject players;
 
     private void load() throws Exception{
         File playersfile = new File(ConfigLoader.dataFolder.getAbsolutePath() +
@@ -28,6 +28,7 @@ public class FileDataService implements DataService {
     private void save() throws Exception {
         HopperLimitUtil.saveStringToFile(players.toString(),ConfigLoader.dataFolder.getAbsolutePath() +
                 File.separator + PLAYERS_DATA_JSON);
+        load();
     }
 
     public FileDataService() {
@@ -95,10 +96,7 @@ public class FileDataService implements DataService {
                 HopperLimitUtil.saveStringToFile("{}",file.getAbsolutePath());
             }
             JSONObject playerchunks = new JSONObject(HopperLimitUtil.readFromFile(file.getAbsolutePath()));
-            JSONObject newChunk = new JSONObject();
-            newChunk.put("hopperPos", hopperChunk.getHopperPos());
-            newChunk.put("count", hopperChunk.getCount());
-            playerchunks.put(hopperChunk.getHopperPos(), newChunk);
+            playerchunks.put(hopperChunk.getHopperPos(), ModelAdaptor.chunkToJson(hopperChunk));
             HopperLimitUtil.saveStringToFile(playerchunks.toString(),file.getAbsolutePath());
         }catch (Exception e) {
             throw new RuntimeException("error: " + e);

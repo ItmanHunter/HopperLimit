@@ -37,7 +37,7 @@ public class HopperLimitUtil {
         int startX = placedBlock.getX() - placedBlock.getX()%16;
         int startZ = placedBlock.getZ() - placedBlock.getZ()%16;
         String worldName = placedBlock.getWorld().getEnvironment().name();
-        return dataService.getChunk(player.getDisplayName(),
+        return dataService.getChunk(player.getUniqueId().toString() ,
                 worldName,
                 startX,
                 startZ);

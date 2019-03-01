@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class HopperLimitListener implements Listener {
 
@@ -26,8 +27,8 @@ public class HopperLimitListener implements Listener {
                 player.sendMessage("Hopper limit has been reached!!!");
             } else {
                 hopperChunk.increaseCount();
-                player.sendMessage("Placed hopper successfully!! Total now: " + hopperChunk.getCount() + " Placed at chunk " + hopperChunk.getHopperPos() + " by " + player.getUniqueId().toString());
                 dataService.updateChunk(hopperPlayer,hopperChunk);
+                player.sendMessage("Placed hopper successfully!! Total now: " + hopperChunk.getCount() + " Placed at chunk " + hopperChunk.getHopperPos() + " by " + player.getUniqueId().toString());
             }
         }
     }
