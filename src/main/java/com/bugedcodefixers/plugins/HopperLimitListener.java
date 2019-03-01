@@ -19,14 +19,14 @@ public class HopperLimitListener implements Listener {
     public void onHopperPlace(BlockPlaceEvent event) {
         if ( event.getBlockPlaced().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
-            HopperPlayer hopperPlayer = dataService.getPlayer(player.getPlayerListName());
+            HopperPlayer hopperPlayer = dataService.getPlayer(player.getUniqueId().toString());
             HopperChunk hopperChunk = HopperLimitUtil.getHopperChunk(event.getBlockPlaced(),player,dataService);
             if (HopperLimitUtil.isHopperLimit(hopperChunk,player,dataService)) {
                 event.setCancelled(true);
                 player.sendMessage("Hopper limit has been reached!!!");
             } else {
                 hopperChunk.increaseCount();
-                player.sendMessage("Placed hopper successfully!! Total now: " + hopperChunk.getCount() + " Placed at chunk " + hopperChunk.getHopperPos() + " by " + player.getPlayerListName());
+                player.sendMessage("Placed hopper successfully!! Total now: " + hopperChunk.getCount() + " Placed at chunk " + hopperChunk.getHopperPos() + " by " + player.getUniqueId().toString());
                 dataService.updateChunk(hopperPlayer,hopperChunk);
             }
         }
@@ -36,7 +36,7 @@ public class HopperLimitListener implements Listener {
     public void onHopperBreak(BlockBreakEvent event) {
         if ( event.getBlock().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
-            HopperPlayer hopperPlayer = dataService.getPlayer(player.getPlayerListName());
+            HopperPlayer hopperPlayer = dataService.getPlayer(player.getUniqueId().toString());
             HopperChunk hopperChunk = HopperLimitUtil.getHopperChunk(event.getBlock(),player,dataService);
             hopperChunk.decreaseCount();
             player.sendMessage("Removed hopper successfully!! Total now: " + hopperChunk.getCount());

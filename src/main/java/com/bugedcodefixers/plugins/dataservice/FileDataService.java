@@ -1,17 +1,14 @@
 package com.bugedcodefixers.plugins.dataservice;
 
-import com.bugedcodefixers.plugins.HopperLimit;
 import com.bugedcodefixers.plugins.config.ConfigLoader;
 import com.bugedcodefixers.plugins.model.HopperChunk;
 import com.bugedcodefixers.plugins.model.HopperPlayer;
 import com.bugedcodefixers.plugins.model.ModelAdaptor;
 import com.bugedcodefixers.plugins.utils.HopperLimitUtil;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
-import java.io.IOException;
 
 public class FileDataService implements DataService {
 
@@ -20,8 +17,13 @@ public class FileDataService implements DataService {
     public static JSONObject players;
 
     private void load() throws Exception{
-        players = new JSONObject(HopperLimitUtil.readFromFile(ConfigLoader.dataFolder.getAbsolutePath() +
-                File.separator + PLAYERS_DATA_JSON));
+        File playersfile = new File(ConfigLoader.dataFolder.getAbsolutePath() +
+                File.separator + PLAYERS_DATA_JSON);
+        if (!playersfile.exists()) {
+            playersfile.getParentFile().mkdirs();
+            HopperLimitUtil.saveStringToFile("{}",playersfile.getAbsolutePath());
+        }
+        players = new JSONObject(HopperLimitUtil.readFromFile(playersfile.getAbsolutePath()));
     }
 
     private void save() throws Exception {
@@ -40,6 +42,7 @@ public class FileDataService implements DataService {
     @Override
     public HopperPlayer getPlayer(String playername) {
         try {
+            load();
             if (!players.has(playername)) {
                 JSONObject newPlayer = new JSONObject();
                 newPlayer.put("name", playername);
@@ -56,6 +59,7 @@ public class FileDataService implements DataService {
     @Override
     public HopperChunk getChunk(String playername, String world, int x, int z) {
         try {
+            load();
             String chunkPath = ConfigLoader.dataFolder.getAbsolutePath() +
                     File.separator + "chunks" + File.separator + playername + ".json";
             File file = new File(chunkPath);
@@ -82,6 +86,7 @@ public class FileDataService implements DataService {
     @Override
     public void updateChunk(HopperPlayer player, HopperChunk hopperChunk) {
         try {
+            load();
             String chunkPath = ConfigLoader.dataFolder.getAbsolutePath() +
                     File.separator + "chunks" + File.separator + player.getPlayerListName() + ".json";
             File file = new File(chunkPath);
@@ -104,8 +109,9 @@ public class FileDataService implements DataService {
     @Override
     public int getStandardLimit() {
         try {
+            load();
             return players.getInt("StandardLimit");
-        } catch (JSONException e) {
+        } catch (Exception e) {
             return 10;
         }
     }
@@ -122,8 +128,10 @@ public class FileDataService implements DataService {
     @Override
     public void setStandardLimit(int limit) {
         try {
+            load();
             players.put("StandardLimit", limit);
-        } catch (JSONException e) {
+            save();
+        } catch (Exception e) {
             e.printStackTrace();;
         }
     }
