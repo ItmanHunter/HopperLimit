@@ -1,8 +1,8 @@
-package com.bugedcodefixers.plugins;
+package com.ocoolcraft.plugins;
 
-import com.bugedcodefixers.plugins.config.ConfigLoader;
-import com.bugedcodefixers.plugins.dataservice.DataService;
-import com.bugedcodefixers.plugins.dataservice.DataServiceFactory;
+import com.ocoolcraft.plugins.config.ConfigLoader;
+import com.ocoolcraft.plugins.dataservice.DataService;
+import com.ocoolcraft.plugins.dataservice.DataServiceFactory;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

@@ -1,15 +1,13 @@
-package com.bugedcodefixers.plugins.utils;
+package com.ocoolcraft.plugins.utils;
 
-import com.bugedcodefixers.plugins.dataservice.DataService;
+import com.ocoolcraft.plugins.dataservice.DataService;
+import com.ocoolcraft.plugins.model.HopperChunk;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.World;
 import org.bukkit.block.Block;
-import com.bugedcodefixers.plugins.model.HopperChunk;
 import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.charset.Charset;
 
 public class HopperLimitUtil {

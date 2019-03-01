@@ -1,11 +1,11 @@
-package com.bugedcodefixers.plugins.dataservice;
+package com.ocoolcraft.plugins.dataservice;
 
-import com.bugedcodefixers.plugins.model.HopperChunk;
-import com.bugedcodefixers.plugins.model.HopperPlayer;
+import com.ocoolcraft.plugins.model.HopperChunk;
+import com.ocoolcraft.plugins.model.HopperPlayer;
 
 public interface DataService {
     HopperPlayer getPlayer(String playername);
-    HopperChunk getChunk(String playername,String world,int x, int z);
+    HopperChunk getChunk(String playername, String world, int x, int z);
     void updateChunk(HopperPlayer player,HopperChunk hopperChunk);
     int getStandardLimit();
     void unloadDataService();

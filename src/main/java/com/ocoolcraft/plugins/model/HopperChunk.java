@@ -1,4 +1,4 @@
-package com.bugedcodefixers.plugins.model;
+package com.ocoolcraft.plugins.model;
 
 public class HopperChunk {
 

@@ -1,9 +1,9 @@
-package com.bugedcodefixers.plugins;
+package com.ocoolcraft.plugins;
 
-import com.bugedcodefixers.plugins.dataservice.DataService;
-import com.bugedcodefixers.plugins.model.HopperChunk;
-import com.bugedcodefixers.plugins.model.HopperPlayer;
-import com.bugedcodefixers.plugins.utils.HopperLimitUtil;
+import com.ocoolcraft.plugins.dataservice.DataService;
+import com.ocoolcraft.plugins.model.HopperChunk;
+import com.ocoolcraft.plugins.model.HopperPlayer;
+import com.ocoolcraft.plugins.utils.HopperLimitUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

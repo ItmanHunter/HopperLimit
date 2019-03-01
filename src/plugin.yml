@@ -1,7 +1,7 @@
 name: HopperLimit
 version: 1.0-SNAPSHOT
 author: ItmanHunter
-main: com.bugedcodefixers.plugins.HopperLimit
+main: com.ocoolcraft.plugins.HopperLimit
 api-version: 1.13
 commands:
   setHopperLimit:

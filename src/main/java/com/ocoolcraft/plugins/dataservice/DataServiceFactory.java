@@ -1,6 +1,6 @@
-package com.bugedcodefixers.plugins.dataservice;
+package com.ocoolcraft.plugins.dataservice;
 
-import com.bugedcodefixers.plugins.config.ConfigLoader;
+import com.ocoolcraft.plugins.config.ConfigLoader;
 import org.json.JSONObject;
 
 public class DataServiceFactory {

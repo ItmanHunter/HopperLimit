@@ -1,9 +1,7 @@
-package com.bugedcodefixers.plugins.dataservice;
+package com.ocoolcraft.plugins.dataservice;
 
-import com.bugedcodefixers.plugins.model.HopperChunk;
-import com.bugedcodefixers.plugins.model.HopperPlayer;
-import com.bugedcodefixers.plugins.utils.HopperLimitUtil;
-import org.json.JSONException;
+import com.ocoolcraft.plugins.model.HopperChunk;
+import com.ocoolcraft.plugins.model.HopperPlayer;
 import org.json.JSONObject;
 
 import java.sql.Connection;
@@ -37,7 +35,7 @@ public class MySqlDataService implements DataService {
     }
 
     @Override
-    public HopperChunk getChunk(String playername,String world, int x, int z) {
+    public HopperChunk getChunk(String playername, String world, int x, int z) {
         return null;
     }
 

@@ -1,7 +1,6 @@
-package com.bugedcodefixers.plugins.config;
+package com.ocoolcraft.plugins.config;
 
-import com.bugedcodefixers.plugins.utils.HopperLimitUtil;
-import org.json.JSONObject;
+import com.ocoolcraft.plugins.utils.HopperLimitUtil;
 
 import java.io.File;
 
