@@ -4,26 +4,17 @@ import com.ocoolcraft.plugins.model.HopperChunk;
 import com.ocoolcraft.plugins.model.HopperPlayer;
 import org.json.JSONObject;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
-public class MySqlDataService implements DataService {
+public class DatabaseDataService implements DataService {
 
     private final static String CONFIG_FILE = "config.json";
-    private Connection databaseConnection;
     private JSONObject configJSON;
 
-    public MySqlDataService(JSONObject _configJSON) {
+
+    public DatabaseDataService(JSONObject _configJSON) {
         try {
             this.configJSON = _configJSON;
-            String dataBaseURL = configJSON.getString("dataBaseURL");
-            String userName = configJSON.getString("userName");
-            String password = configJSON.getString("password");
-            databaseConnection = DriverManager.getConnection(dataBaseURL, userName, password);
-            if (databaseConnection != null) {
 
-            }
         } catch (Exception ex) {
             throw new RuntimeException("error: " + ex);
         }
@@ -36,6 +27,7 @@ public class MySqlDataService implements DataService {
 
     @Override
     public HopperChunk getChunk(String playername, String world, int x, int z) {
+
         return null;
     }
 
@@ -65,8 +57,7 @@ public class MySqlDataService implements DataService {
     @Override
     public void unloadDataService() {
         try {
-            databaseConnection.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

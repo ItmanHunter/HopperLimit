@@ -15,7 +15,7 @@ public class DataServiceFactory {
                 dataServiceType = configJson.getString("dataServiceType");
             }
             if (dataServiceType.equalsIgnoreCase("mysql")) {
-                return new MySqlDataService(configJson);
+                return new DatabaseDataService(configJson);
             } else {
                 return new FileDataService();
             }

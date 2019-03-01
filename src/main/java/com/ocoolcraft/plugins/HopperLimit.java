@@ -3,6 +3,7 @@ package com.ocoolcraft.plugins;
 import com.ocoolcraft.plugins.config.ConfigLoader;
 import com.ocoolcraft.plugins.dataservice.DataService;
 import com.ocoolcraft.plugins.dataservice.DataServiceFactory;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -44,6 +45,7 @@ public class HopperLimit extends JavaPlugin {
                 }
                 int limit = Integer.parseInt(agrs[0]);
                 dataService.setStandardLimit(limit);
+                getServer().broadcastMessage(ChatColor.RED + "The hopper limit is " + limit);
             }
         }
         return true;

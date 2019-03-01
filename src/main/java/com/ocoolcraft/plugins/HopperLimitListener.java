@@ -28,7 +28,7 @@ public class HopperLimitListener implements Listener {
             } else {
                 hopperChunk.increaseCount();
                 dataService.updateChunk(hopperPlayer,hopperChunk);
-                player.sendMessage("Placed hopper successfully!! Total now: " + hopperChunk.getCount() + " Placed at chunk " + hopperChunk.getHopperPos() + " by " + player.getUniqueId().toString());
+                player.sendMessage("Placed hopper successfully!! Total at chunk now: " + hopperChunk.getCount());
             }
         }
     }
@@ -40,7 +40,7 @@ public class HopperLimitListener implements Listener {
             HopperPlayer hopperPlayer = dataService.getPlayer(player.getUniqueId().toString());
             HopperChunk hopperChunk = HopperLimitUtil.getHopperChunk(event.getBlock(),player,dataService);
             hopperChunk.decreaseCount();
-            player.sendMessage("Removed hopper successfully!! Total now: " + hopperChunk.getCount());
+            player.sendMessage("Removed hopper successfully!! Total at chunk now: " + hopperChunk.getCount());
             dataService.updateChunk(hopperPlayer,hopperChunk);
         }
     }
