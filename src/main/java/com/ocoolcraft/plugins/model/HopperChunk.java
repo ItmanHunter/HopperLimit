@@ -1,5 +1,8 @@
 package com.ocoolcraft.plugins.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class HopperChunk {
 
     private int id;
@@ -9,6 +12,12 @@ public class HopperChunk {
     private int count;
 
     private String hopperPos;
+
+    private Set<String> hoppers;
+
+    public HopperChunk() {
+        hoppers = new HashSet<>();
+    }
 
     public int getId() {
         return id;
@@ -79,5 +88,21 @@ public class HopperChunk {
 
     public void decreaseCount() {
         count = Math.max(count-1,0);
+    }
+
+    public void addHopperAt(String position) {
+        if (!hoppers.contains(position)) {
+            hoppers.add(position);
+        }
+    }
+
+    public void removeHopperAt(String position) {
+        if (hoppers.contains(position)) {
+            hoppers.remove(position);
+        }
+    }
+
+    public Set<String> getHoppers() {
+        return hoppers;
     }
 }

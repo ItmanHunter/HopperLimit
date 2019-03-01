@@ -5,7 +5,6 @@ import org.json.JSONObject;
 
 public class DataServiceFactory {
 
-
     public static DataService getDataService() {
         try {
             String configJsonString = ConfigLoader.getConfigString();

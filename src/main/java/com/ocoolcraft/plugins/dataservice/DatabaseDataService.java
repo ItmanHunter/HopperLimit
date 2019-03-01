@@ -10,11 +10,9 @@ public class DatabaseDataService implements DataService {
     private final static String CONFIG_FILE = "config.json";
     private JSONObject configJSON;
 
-
     public DatabaseDataService(JSONObject _configJSON) {
         try {
             this.configJSON = _configJSON;
-
         } catch (Exception ex) {
             throw new RuntimeException("error: " + ex);
         }

@@ -1,5 +1,6 @@
 package com.ocoolcraft.plugins.model;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,6 +32,12 @@ public class ModelAdaptor {
             if (chunk.has("count")){
                 hopperChunk.setCount(chunk.getInt("count"));
             }
+            if (chunk.has("hoppers")) {
+                JSONArray hoppers = chunk.getJSONArray("hoppers");
+                for (int index = 0; index < hoppers.length(); index++) {
+                    hopperChunk.addHopperAt(hoppers.getString(index));
+                }
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -42,6 +49,11 @@ public class ModelAdaptor {
             JSONObject chunkJson = new JSONObject();
             chunkJson.put("hopperPos", hopperChunk.getHopperPos());
             chunkJson.put("count", hopperChunk.getCount());
+            JSONArray hoppers = new JSONArray();
+            for(String pos:hopperChunk.getHoppers()) {
+                hoppers.put(pos);
+            }
+            chunkJson.put("hoppers", hoppers);
             return chunkJson;
         } catch (Exception e) {
             throw new RuntimeException("error: " + e);

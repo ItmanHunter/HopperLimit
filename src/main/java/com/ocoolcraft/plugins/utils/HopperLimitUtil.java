@@ -57,4 +57,7 @@ public class HopperLimitUtil {
         return (hopperChunk.getCount() + 1 > mul*dataService.getStandardLimit());
     }
 
+    public static String getPositionString(Block blockPlaced) {
+        return blockPlaced.getWorld().getEnvironment().name() + ":" + blockPlaced.getX() + ":" + blockPlaced.getY() + ":" + blockPlaced.getZ();
+    }
 }

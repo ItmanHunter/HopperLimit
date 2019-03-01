@@ -27,6 +27,7 @@ public class HopperLimitListener implements Listener {
                 player.sendMessage("Hopper limit has been reached!!!");
             } else {
                 hopperChunk.increaseCount();
+                hopperChunk.addHopperAt(HopperLimitUtil.getPositionString(event.getBlockPlaced()));
                 dataService.updateChunk(hopperPlayer,hopperChunk);
                 player.sendMessage("Placed hopper successfully!! Total at chunk now: " + hopperChunk.getCount());
             }
