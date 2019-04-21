@@ -16,7 +16,7 @@ public class HopperLimitListener implements Listener {
 
     private DataService dataService;
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onHopperPlace(BlockPlaceEvent event) {
         if ( event.getBlockPlaced().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
@@ -38,7 +38,7 @@ public class HopperLimitListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onHopperBreak(BlockBreakEvent event) {
         if ( event.getBlock().getType() == Material.HOPPER) {
             Player player = event.getPlayer();
